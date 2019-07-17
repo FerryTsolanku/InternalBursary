@@ -1,0 +1,57 @@
+@Html.DevExpress().GetStyleSheets(
+new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new Script { ExtensionSuite = ExtensionSuite.Editors },
+new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridView1";
+        settings.CallbackRouteValues = new { Controller = "BursaryModels", Action = "GridView1Partial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "BursaryModels", Action = "GridView1PartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "BursaryModels", Action = "GridView1PartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "BursaryModels", Action = "GridView1PartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowSelectButton = true;
+
+        settings.KeyFieldName = "SubCrseID";
+        settings.Columns.Add("SubCrseID");
+        settings.Columns.Add("EMPID");
+        settings.Columns.Add("SubCrse");
+        settings.Columns.Add("PassSubj");
+        settings.Columns.Add("YrPass");
+        settings.Columns.Add("FailSubj");
+        settings.Columns.Add("YrFail");
+        settings.Columns.Add("AGBurAmountPaid");
+        settings.Columns.Add("AGLoanPaid");
+        settings.SettingsPager.NumericButtonCount = 9;
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = true;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+
+
+    }
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,57 @@
+@Html.DevExpress().GetStyleSheets(
+new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new Script { ExtensionSuite = ExtensionSuite.Editors },
+new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "detailGrid_" + ViewData["EMPID"];
+        settings.SettingsDetail.MasterGridName = "grid";
+        settings.CallbackRouteValues = new { Controller = "IndexDetails", Action = "MasterDetailDetailPartial", EMPID = ViewData["EMPID"] };
+
+        settings.CallbackRouteValues = new { Controller = "Editing", Action = "ExternalEditFormPartial" };
+
+
+        //settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "EMPID";
+        settings.Columns.Add("SubCrseID");
+        settings.Columns.Add("EMPID");
+        settings.Columns.Add("SubCrse");
+        settings.Columns.Add("PassSubj");
+        settings.Columns.Add("YrPass");
+        settings.Columns.Add("FailSubj");
+        settings.Columns.Add("YrFail");
+        settings.Columns.Add("AGBurAmountPaid");
+        settings.Columns.Add("AGLoanPaid");
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "AGBurAmountPaid";
+            column.PropertiesEdit.DisplayFormatString = "c";
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Total";
+            column.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+            column.PropertiesEdit.DisplayFormatString = "c";
+        });
+
+        settings.CustomUnboundColumnData = (sender, e) =>
+        {
+            if (e.Column.FieldName == "Total")
+            {
+                int BurPaid = Convert.ToInt32(e.GetListSourceFieldValue("AGBurAmountPaid"));
+                int LoanPaid = Convert.ToInt32(e.GetListSourceFieldValue("AGLoanPaid"));
+                e.Value = BurPaid + LoanPaid;
+            }
+        };
+        settings.Settings.ShowFooter = true;
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Total");
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AGBurAmountPaid");
+    }).Bind(Model).GetHtml()

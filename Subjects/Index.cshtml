@@ -1,0 +1,42 @@
+﻿@model IEnumerable<object>
+
+<script type="text/javascript">
+    MVCxClientGlobalEvents.AddControlsInitializedEventHandler(AttachEditorValueChangedEvent);
+
+    function AttachEditorValueChangedEvent(){
+        var demoOptionNames = [ "EditMode", "StartEditAction", "HighlightDeletedRows" ];
+        $.each(demoOptionNames, function(i, name){
+            var editor = ASPxClientControl.GetControlCollection().GetByName(name);
+            editor.ValueChanged.AddHandler(OnChangeDemoOptions);
+        });
+    }
+    function OnChangeDemoOptions(){
+        gridView.PerformCallback();
+    }
+    function OnBeginGridCallback(s, e){
+        e.customArgs = MVCxClientUtils.GetSerializedEditorValuesInContainer("options");
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "options";
+    settings.RequiredMarkDisplayMode = RequiredMarkMode.None;
+    settings.UseDefaultPaddings = false;
+    settings.Style["padding"] = "0px 0px 10px 0px";
+    settings.Items.AddGroupItem(g =>
+    {
+        g.ShowCaption = DefaultBoolean.False;
+        g.GroupBoxStyle.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+        g.UseDefaultPaddings = false;
+
+        //g.Items.Add(i => i.FieldName = "EditMode");
+        //g.Items.Add(i => i.FieldName = "StartEditAction");
+        //g.Items.Add(i => i.FieldName = "HighlightDeletedRows");
+    });
+}).Bind(Model).GetHtml();
+
+    @Html.Partial("SubjectView", Model)
+}

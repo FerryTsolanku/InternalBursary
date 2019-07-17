@@ -1,0 +1,83 @@
+﻿@model Internal_Bursary.Models.CurriculumDetails
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CurriculumDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EMPID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMPID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCrse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCrse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassSubj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassSubj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YrPass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YrPass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FailSubj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FailSubj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YrFail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YrFail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AGBurAmountPaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AGBurAmountPaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AGLoanPaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AGLoanPaid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubCrseID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,137 @@
+﻿@model IEnumerable<object>
+
+
+@*@{
+    List<Internal_Bursary.Models.EmployeeDetails> Emp = Model.ToList()[0] as List<Internal_Bursary.Models.EmployeeDetails>;
+    List<Internal_Bursary.Models.CurriculumDetails> Curr = Model.ToList()[1] as List<Internal_Bursary.Models.CurriculumDetails>;
+    ViewBag.Title = "Registration and Tuition Fees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+@*@Html.Action("GridViewPartial")*@
+
+
+
+<h2>Registration and Tuition Fees</h2>
+
+<p>
+    @* @Html.ActionLink("Create New", "Create")*@
+</p>
+@Html.Partial("MasterDetailMasterPartial", Model)
+@*<table class="table">
+    <tr>
+        <th>
+            <h4>Employee ID</h4>
+        </th>
+        <th>
+            <h4>Fisrt Name</h4>
+        </th>
+        <th>
+            <h4>Last Name</h4>
+        </th>
+        <th>
+            <h4>Position</h4>
+        </th>
+        <th>
+            <h4>Business Unit</h4>
+        </th>
+        <th>
+            <h4>Center</h4>
+        </th>
+        <th></th>
+    </tr>*@
+    @*@foreach (var item in Emp)
+    {*@
+        @*<tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMPID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Center)
+            </td>*@
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.PassID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.PassID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.PassID })
+                </td>*@
+       @*</tr>*@
+        
+    @*<tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CurriculumDetails.EMPID)
+            </th>*@
+        @*<th>
+            <h4>Subject/Course</h4>
+        </th>
+        <th>
+            <h4>Passed Subjects</h4>
+        </th>
+        <th>
+            <h4>Year Passed</h4>
+        </th>
+        <th>
+            <h4>Failed Subjects</h4>
+        </th>
+        <th>
+            <h4>Year Fail</h4>
+        </th>
+        <th>
+            <h4>AGSA Bursary Amount Paid</h4>
+        </th>
+        <th>
+            <h4>AGSA Loan Paid</h4>
+        </th>
+        <th></th>*@
+    @*</tr>
+    @foreach (var item in Curr)
+    {
+        <tr>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.SubCrse)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.PassSubj)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.YrPass)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.FailSubj)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.YrFail)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.AGBurAmountPaid)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.AGLoanPaid)
+            </th>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SubCrseID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SubCrseID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SubCrseID })
+            </td>
+            <th></th>
+        </tr>
+    }*@
+
+@*</table>*@
+
+<div class="form-group">
+    @*<div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>*@
+</div>

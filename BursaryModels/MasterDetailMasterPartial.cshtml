@@ -1,0 +1,47 @@
+@Html.DevExpress().GetStyleSheets(
+new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GetScripts(
+new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new Script { ExtensionSuite = ExtensionSuite.Editors },
+new Script { ExtensionSuite = ExtensionSuite.GridView }
+)
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "grid";
+        settings.CallbackRouteValues = new { Controller = "IndexDetails", Action = "MasterDetailMasterPartial" };
+        //settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "EMPID";
+        settings.Columns.Add("EMPID");
+        settings.Columns.Add("FirstName");
+        settings.Columns.Add("LastName");
+        settings.Columns.Add("Position");
+        settings.Columns.Add("BU");
+        settings.Columns.Add("Center");
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+
+        settings.SetDetailRowTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                 //@Html.ActionLink("Subjects Details", "Index", "Subjects", new { area = "" }, new { @class = "navbar-brand" })
+                 @Html.ActionLink("Subjects Details", "Index", "Subjects", routeValues: null, htmlAttributes: new { id = "IndexLink" })
+            ////    "Contact Phone: <b>" +
+            ////        DataBinder.Eval(c.DataItem, "BU") + "</b>, Fax: <b>" +
+            ////            DataBinder.Eval(c.DataItem, "Center") + "</b>" +
+            //    "<br />" +
+            //    "<br />"
+            );
+        Html.RenderAction("MasterDetailDetailPartial", new { EMPID = DataBinder.Eval(c.DataItem, "EMPID") });
+
+    });
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).DetailRows.ExpandRow(0);
+    };
+}).Bind(Model).GetHtml()

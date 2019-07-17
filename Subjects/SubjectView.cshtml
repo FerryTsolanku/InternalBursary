@@ -1,0 +1,80 @@
+﻿@model IEnumerable<object>
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "grid";
+        settings.KeyFieldName = "SubjID";
+        //settings.Width = Unit.Percentage(100);
+        settings.CallbackRouteValues = new { Controller = "Index", Action = "SubjectView" };
+        settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Index", Action = "SubjectView" };
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+        //settings.SettingsEditing.BatchEditSettings.EditMode = BatchEditingDemoHelper.Options.EditMode;
+        //settings.SettingsEditing.BatchEditSettings.StartEditAction = BatchEditingDemoHelper.Options.StartEditAction;
+        //settings.SettingsEditing.BatchEditSettings.HighlightDeletedRows =  BatchEditingDemoHelper.Options.HighlightDeletedRows;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowNewButtonInHeader = true;
+        //settings.CommandColumn.Width = Unit.Point(50);
+
+        settings.KeyFieldName = "SubjID";
+        settings.Columns.Add("SubjID");
+        settings.Columns.Add("EMPID");
+        settings.Columns.Add("Year");
+        settings.Columns.Add("Subjectss");
+        settings.Columns.Add("CostPer");
+        settings.Columns.Add("SubCrseID");
+        //settings.Columns.Add("SubjID");
+        //settings.Columns.Add("SubjID");
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "SubCrseID";
+        //    column.Caption = "Subjectss";
+        //    //settings.Columns.Add("SubCrseID");
+        //    column.EditorProperties().ComboBox(p =>
+        //    {
+        //        p.TextField = "SubCrseID";
+        //        p.ValueField = "SubCrseID";
+        //        p.ValueType = typeof(int);
+        //       // p.DataSource = .GetCategories();
+        //    });
+        //});
+        //settings.Columns.Add("EMPID");
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "CostPer";
+        //    settings.Columns.Add("CostPer");
+        //    column.EditorProperties().SpinEdit(p =>
+        //    {
+        //        p.DisplayFormatString = "c";
+        //        p.DisplayFormatInEditMode = true;
+        //        p.MinValue = 0;
+        //        p.MaxValue = 1000000;
+        //    });
+        //});
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "Year";
+        //    settings.Columns.Add("Year");
+        //    column.EditorProperties().SpinEdit(p =>
+        //    {
+        //        p.NumberType = SpinEditNumberType.Integer;
+        //        p.MinValue = 0;
+        //        p.MaxValue = 10000;
+        //    });
+        //});
+        //settings.Columns.Add("Discontinued", MVCxGridViewColumnType.CheckBox);
+        //settings.CellEditorInitialize = (s, e) =>
+        //{
+        //    ASPxEdit editor = (ASPxEdit)e.Editor;
+        //    editor.ValidationSettings.Display = Display.None;
+        //};
+        settings.ClientSideEvents.BeginCallback = "OnBeginGridCallback";
+    }).Bind(Model).GetHtml()
